@@ -13,7 +13,8 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link rel="shortcut icon" href="https://picsum.photos/200/300" type="image/x-icon">
+    {% comment %} <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> {% endcomment %}
+    <link rel="shortcut icon" href="{% static 'download.ico' %}" type="image/x-icon">
     {% block stylingBlock %}{% endblock stylingBlock %}
   </head>
 

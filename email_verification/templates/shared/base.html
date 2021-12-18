@@ -15,8 +15,10 @@
       crossorigin="anonymous"
     />
     {% comment %} <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> {% endcomment %}
-    <link rel="shortcut icon" href="{% static 'download.ico' %}" type="image/x-icon">
+    <link rel="favicon" href="{% static 'download.ico' %}" type="image/x-icon">
+    {% comment %} <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> {% endcomment %}
     {% block stylingBlock %}{% endblock stylingBlock %}
+    <title>Influencer  </title>
   </head>
 
   <body class="bg-light">

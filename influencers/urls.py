@@ -28,4 +28,6 @@ urlpatterns = [
         {'document_root':       settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,
         {'document_root': settings.STATIC_ROOT}),
+        (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/download.ico'}),
+        
 ]

@@ -25,9 +25,9 @@ def index(request):
             context["emailExistStatus"] = "Email not exist"
             return render(request, 'index.html', context)
         finally:
-            count = list(email.values())[0]
-            count['count'] = count['count']+1
-            email.update(count=count['count'])
+            # count = list(email.values())[0]
+            # count['count'] = count['count']+1
+            # email.update(count=count['count'])
             Email.objects.filter(email=data).update(count=F('count') + 1)
             if count["count"] <= 5:
                 context["emailExistStatus"] = "Email not exist"

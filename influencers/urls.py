@@ -24,10 +24,10 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('email_verification.urls')),
-    #url(r'^media/(?P<path>.*)$', serve,
-     #   {'document_root':       settings.MEDIA_ROOT}),
-    #url(r'^static/(?P<path>.*)$', serve,
-     #   {'document_root': settings.STATIC_ROOT}),
-      ##  (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/favicon.ico'}),
-        
+    url(r'^media/(?P<path>.*)$', serve,
+        {'document_root':       settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,
+        {'document_root': settings.STATIC_ROOT}),
+    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to',
+     {'url': '/static/favicon.ico'}),
 ]

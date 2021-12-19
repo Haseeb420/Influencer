@@ -18,7 +18,7 @@ def index(request):
         email = Email()
         try:
             email = Email.objects.filter(email=data)
-            print(typeof(email))
+            # print(typeof(email))
         except:
             e = Email(email=data)
             e.save()

@@ -14,28 +14,30 @@ def index(request):
     context = {}
     if request.method == "POST":
         data = request.POST["email"]
-        print(data)
+        # print(data)
         email = Email()
         try:
-            email = Email.objects.filter(email=data)
-            # print(typeof(email))
+            email = Email.objects.get(email=data)
+            print(type(email))
+            print(email)
         except:
             e = Email(email=data)
             e.save()
             context["emailExistStatus"] = "Email not exist"
             return render(request, 'index.html', context)
         finally:
-            # count = list(email.values())[0]
+            count = email.count
+            print(count)
             # count['count'] = count['count']+1
             # email.update(count=count['count'])
             Email.objects.filter(email=data).update(count=F('count') + 1)
-            if count["count"] <= 5:
+            if count < 5:
                 context["emailExistStatus"] = "Email not exist"
                 return render(request, 'index.html', context)
             else:
                 print(count)
                 context["existed"] = "Email Already Exisit"
-                print(email)
+                # print(email)
                 return render(request, 'index.html', context)
 
     if request.method == "GET":

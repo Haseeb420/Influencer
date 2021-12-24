@@ -5,7 +5,7 @@ from django.db.models.fields import AutoField
 
 
 class Email(models.Model):
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.CharField(max_length=100, unique=True)
     count = models.IntegerField(default=1)
 
     def __str__(self):

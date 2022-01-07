@@ -1,1 +1,1 @@
-web: gunicorn influencers.wsgi --log-file 
+web: gunicorn influencers.wsgi --log-file -

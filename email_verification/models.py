@@ -16,9 +16,3 @@ class Email(models.Model):
             return True
         else:
             return False
-
-
-class User(models.Model):
-    Useremail = models.EmailField(max_length=254)
-    message = models.TextField(max_length=1000)
-    userPassword = models.CharField(max_length=50)

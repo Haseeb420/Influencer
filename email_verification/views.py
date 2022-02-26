@@ -1,12 +1,8 @@
-from django.db.models.query_utils import Q
-from django.forms.widgets import CheckboxInput
-from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from email_verification.forms import EmailForm
+from django.shortcuts import render
 from email_verification.models import Email
-from django.db.models import F, Q
-
-# Create your views here.
+from django.db.models import F
+import csv
+from django.http import HttpResponse
 
 
 def index(request):
@@ -14,12 +10,9 @@ def index(request):
     context = {}
     if request.method == "POST":
         data = request.POST["email"]
-        # print(data)
         email = Email()
         try:
             email = Email.objects.get(email=data)
-            print(type(email))
-            print(email)
         except:
             e = Email(email=data)
             e.save()
@@ -27,35 +20,30 @@ def index(request):
             return render(request, 'index.html', context)
         finally:
             count = email.count
-            print(count)
-            # count['count'] = count['count']+1
-            # email.update(count=count['count'])
             if count < 6:
                 Email.objects.filter(email=email).update(count=F('count') + 1)
                 context["emailExistStatus"] = "Email not exist"
                 return render(request, 'index.html', context)
             else:
-                print(count)
                 context["existed"] = "Email Already Exisit"
-                # print(email)
                 return render(request, 'index.html', context)
 
     if request.method == "GET":
         return render(request, 'index.html')
 
 
-def SearchEmail(request):
-    if(request.method == "POST"):
-        data = request.POST["email"]
-        print(data)
-        email = ""
-        try:
-            email = Email.objects.get(email=data)
-        except:
-            pass
-        finally:
-            if email:
-                print(email)
-        return HttpResponse(data)
-    else:
-        return render(request, 'index.html')
+def get_all_emails(request):
+    emails = Email.objects.all()
+    context = {"emails": emails}
+    return render(request, 'get_all_emails.html', context)
+
+
+def export_into_csv(request):
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="emails.csv"'
+    writer = csv.writer(response)
+    writer.writerow(["id", 'Email', 'Count'])
+    for email in Email.objects.all():
+        writer.writerow([email.id, email.email, email.count])
+    return response

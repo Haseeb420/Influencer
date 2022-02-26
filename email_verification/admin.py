@@ -1,4 +1,8 @@
 from django.contrib import admin
 from email_verification.models import Email
 # Register your models here.
-admin.site.register(Email)
+
+
+@admin.register(Email)
+class EmailAdmin(admin.ModelAdmin):
+    list_display = ["id", "email", "count"]
